@@ -47,7 +47,7 @@ namespace pms_api
             services.AddScoped<INotes, NoteData>();
             services.AddScoped<IProducts, ProductsData>();
             services.AddScoped<ISource, SourceData>();
-
+            services.AddScoped<ITeam, TeamData>();
             //services.AddCors(options =>
             //{
             //    options.AddPolicy("AllowAll", p =>

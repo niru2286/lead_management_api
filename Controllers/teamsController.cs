@@ -10,20 +10,20 @@ namespace pms_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class membersController : ControllerBase
+    public class teamsController : ControllerBase
     {
-        private readonly IMembers _members;
-        public membersController(IMembers members)
+        private readonly ITeam _teams;
+        public teamsController(ITeam teams)
         {
-            _members = members;
+            _teams = teams;
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> create(TblMember member)
+        public async Task<IActionResult> create(TblTeam team)
         {
             try
             {
-                var recordAffected = await _members.Create(member);
+                var recordAffected = await _teams.Create(team);
                 if (recordAffected > 0)
                 {
                     return Ok(
@@ -47,17 +47,17 @@ namespace pms_api.Controllers
                 return BadRequest(new
                 {
                     Status = 2,
-                    Message = ex.InnerException.Message
+                    Message = ex.Message
                 });
             }
         }
 
         [HttpPost("update")]
-        public async Task<IActionResult> update(TblMember member)
+        public async Task<IActionResult> update(TblTeam team)
         {
             try
             {
-                var recordAffected = await _members.Update(member);
+                var recordAffected = await _teams.Update(team);
                 if (recordAffected > 0)
                 {
                     return Ok(
@@ -86,11 +86,11 @@ namespace pms_api.Controllers
             }
         }
         [HttpPost("selectall")]
-        public async Task<IActionResult> selectall(int accountId, int status)
+        public async Task<IActionResult> selectall(int accountId)
         {
             try
             {
-                var data = await _members.SelectAll(accountId);
+                var data = await _teams.SelectAll(accountId);
                 if (data == null)
                 {
                     return NotFound();
@@ -112,7 +112,7 @@ namespace pms_api.Controllers
         {
             try
             {
-                var data = await _members.SelectAllByStatus(accountId, status);
+                var data = await _teams.SelectAllByStatus(accountId, status);
                 if (data == null)
                 {
                     return NotFound();
@@ -130,11 +130,11 @@ namespace pms_api.Controllers
         }
 
         [HttpPost("selectbyid")]
-        public async Task<IActionResult> selectbyid(int accountId,int memberId)
+        public async Task<IActionResult> selectbyid(int accountId,int sourceId)
         {
             try
             {
-                var data = await _members.SelectById(accountId, memberId);
+                var data = await _teams.SelectById(accountId, sourceId);
                 if (data == null)
                 {
                     return NotFound();
